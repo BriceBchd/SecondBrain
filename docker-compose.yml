@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo:4.4.18
+    image: mongo
     container_name: mongodb
     ports:
       - 27017:27017
@@ -11,15 +11,24 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
   
   mongo-express:
     image: mongo-express
+    container_name: mongo-express
     ports:
       - 8081:8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USERNAME}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongo:27017/
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: ${DB_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${DB_PASSWORD}
+      ME_CONFIG_BASICAUTH_ENCRYPT: "false"
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongodb
 
 
   # fastify-backend:
@@ -32,7 +41,7 @@ services:
   #   volumes:
   #     - ./backend:/app
   #   environment:
-  #     - MONGODB_URI=mongodb://mongodb:27017/your_db_name # Replace with your MongoDB URI
+  #     - MONGODB_URI=mongodb://mongodb:27017/second-brain
   #   depends_on:
   #     - mongodb
 
