@@ -15,3 +15,12 @@
 - Run `docker-compose down` to stop the containers
 - Run `docker-compose logs -f` to view logs
 - Run `docker-compose exec <container> <command>` to run a command in a container
+
+# Fastify
+
+## Requirements
+```bash
+npm install -g fastify-cli
+cd fastify
+npm install
+```
