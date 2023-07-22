@@ -4,6 +4,7 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
+    restart: always
     ports:
       - 27017:27017
     volumes:
@@ -11,8 +12,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${DB_NAME}
-  
+
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -30,32 +30,33 @@ services:
     depends_on:
       - mongodb
 
+  fastify:
+    image: node:18
+    container_name: fastify
+    restart: always
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./fastify/:/app/
+    # environment:
+    #   - MONGODB_URI=mongodb://mongodb:27017/second-brain
+    depends_on:
+      - mongodb
+    entrypoint: [ "npm", "run", "dev" ]
 
-  # fastify-backend:
-  #   image: node:18
-  #   container_name: fastify-backend
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   working_dir: /app
-  #   volumes:
-  #     - ./backend:/app
-  #   environment:
-  #     - MONGODB_URI=mongodb://mongodb:27017/second-brain
-  #   depends_on:
-  #     - mongodb
-
-  # angular-frontend:
-  #   image: node:18
-  #   container_name: angular-frontend
-  #   restart: always
-  #   ports:
-  #     - 4200:4200
-  #   working_dir: /app
-  #   volumes:
-  #     - ./frontend:/app
-  #   depends_on:
-  #     - fastify-backend
+  angular:
+    image: node:18
+    container_name: angular-frontend
+    restart: always
+    ports:
+      - 4200:4200
+    working_dir: /app
+    volumes:
+      - ./angular:/app
+    depends_on:
+      - fastify
+    entrypoint: [ "npm", "run", "start" ]
 
 volumes:
   mongodb_data:

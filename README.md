@@ -3,6 +3,7 @@
 # Prerequisites
 - [Docker](https://www.docker.com/)
 - [Node.js](https://nodejs.org/en/download/)
+- [Angular CLI](https://angular.io/cli)
 
 # Setup
 1. Clone the repository
