@@ -39,8 +39,7 @@ services:
     working_dir: /app
     volumes:
       - ./fastify/:/app/
-    # environment:
-    #   - MONGODB_URI=mongodb://mongodb:27017/second-brain
+      - .env:/app/.env
     depends_on:
       - mongodb
     entrypoint: [ "npm", "run", "dev" ]
