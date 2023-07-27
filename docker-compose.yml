@@ -44,18 +44,18 @@ services:
       - mongodb
     entrypoint: [ "npm", "run", "dev" ]
 
-  angular:
+  react:
     image: node:18
-    container_name: angular-frontend
+    container_name: react-frontend
     restart: always
     ports:
-      - 4200:4200
+      - 4000:4000
     working_dir: /app
     volumes:
-      - ./angular:/app
+      - ./react:/app
     depends_on:
       - fastify
-    entrypoint: [ "npm", "run", "start" ]
+    entrypoint: [ "npm", "start" ]
 
 volumes:
   mongodb_data:
