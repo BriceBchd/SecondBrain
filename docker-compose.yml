@@ -44,18 +44,18 @@ services:
       - mongodb
     entrypoint: [ "npm", "run", "dev" ]
 
-  react:
+  nextjs:
     image: node:18
-    container_name: react-frontend
+    container_name: nextjs-frontend
     restart: always
     ports:
-      - 4000:4000
+      - 4000:3000
     working_dir: /app
     volumes:
-      - ./react:/app
+      - ./nextjs:/app
     depends_on:
       - fastify
-    entrypoint: [ "npm", "start" ]
+    entrypoint: [ "npm", "run", "dev" ]
 
 volumes:
   mongodb_data:
