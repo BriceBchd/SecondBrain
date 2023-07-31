@@ -13,6 +13,8 @@ const Sidebar = () => {
     const htmlElement = document.querySelector('html');
     if (htmlElement) {
       htmlElement.classList.toggle('dark');
+      const isDarkMode = htmlElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDarkMode.toString());
     }
   }
 
@@ -20,15 +22,19 @@ const Sidebar = () => {
     <>
       <button
         onClick={toggleSidebar}
-        className='fixed top-4 left-4 flex items-center justify-center bg-white-100 hover:bg-gray-200 dark:hover:bg-darkHover focus:outline-none rounded-md'
+        className={`
+          fixed top-4 left-4
+          flex items-center justify-center
+          bg-white-100 hover:bg-gray-200 dark:hover:bg-darkHover 
+          focus:outline-none rounded-md`}
       >
         <svg viewBox='0 0 24 24' className='w-8 m-1' strokeWidth='0'>
           <path d='M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z' />
         </svg>
       </button>
       <aside
-        className={`fixed top-0 left-0 py-2 w-52 h-screen bg-gray-100 dark:bg-dark shadow-xl border-r-2 dark:border-dark transition-all duration-300 rounded-r-xl ${
-          showSidebar ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 mx-2 my-20 w-70 h-5/6 py-2 bg-gray-100 dark:bg-dark shadow-xl border-r-2 dark:border-dark transition-all duration-700 rounded-xl ${
+          showSidebar ? 'translate-x-0' : '-translate-x-56'
         }`}
       >
         <nav className='flex flex-col m-4 mt-2'>
