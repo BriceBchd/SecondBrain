@@ -1,22 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
+import { useSidebar } from '@/hooks/useSidebar';
 
 const Sidebar = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
-
-  function ToggleDarkMode() {
-    const htmlElement = document.querySelector('html');
-    if (htmlElement) {
-      htmlElement.classList.toggle('dark');
-      const isDarkMode = htmlElement.classList.contains('dark');
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    }
-  }
+  const [showSidebar, toggleSidebar] = useSidebar();
+  const [isDarkMode, toggleDarkMode] = useDarkMode();
 
   return (
     <>
@@ -79,7 +68,7 @@ const Sidebar = () => {
               </svg>
             </button>
             <button
-              onClick={ToggleDarkMode}
+              onClick={toggleDarkMode}
               className='flex items-center justify-center bg-white-100 hover:bg-gray-200 dark:hover:bg-darkHover focus:outline-none rounded-md'
             >
               <svg
