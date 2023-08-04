@@ -14,7 +14,7 @@ const Sidebar = () => {
     if (htmlElement) {
       htmlElement.classList.toggle('dark');
       const isDarkMode = htmlElement.classList.contains('dark');
-      localStorage.setItem('darkMode', isDarkMode.toString());
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     }
   }
 

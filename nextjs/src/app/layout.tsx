@@ -15,7 +15,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className='dark' lang='en'>
+    <html lang='en'>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  console.log('dark');
+                  document.documentElement.classList.add('dark');
+              } else {
+                  console.log('light');
+                  document.documentElement.classList.remove('dark');
+              }
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${inter.className} text-darker dark:bg-darker dark:text-darkText dark:fill-darkText stroke-dark dark:stroke-darkText`}
       >
