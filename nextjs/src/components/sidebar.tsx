@@ -10,6 +10,11 @@ const Sidebar = () => {
   const [isDarkMode, toggleDarkMode] = useDarkMode();
   const [showAccount, toggleAccount] = useAccount();
 
+  function handleToggleAccount() {
+    toggleSidebar();
+    toggleAccount();
+  }
+
   return (
     <>
       <button
@@ -25,7 +30,8 @@ const Sidebar = () => {
         </svg>
       </button>
       <aside
-        className={`fixed top-0 left-0 z-40 mx-2 my-20 w-78 h-5/6 py-2 bg-gray-100 dark:bg-dark shadow-xl rounded-xl dark:border-dark border-gray-300 border-2 transition-all duration-700  ${
+        className={`fixed top-0 left-0 z-40 mx-2 my-20 w-78 h-5/6 py-2 
+        bg-gray-100 dark:bg-dark shadow-xl rounded-xl dark:border-darkText border-gray-300 border-2 transition-all duration-700  ${
           showSidebar ? 'translate-x-0' : '-translate-x-80'
         }`}
       >
@@ -33,7 +39,7 @@ const Sidebar = () => {
           <div className='flex items-center justify-between'>
             <button
               id='account'
-              onClick={toggleAccount}
+              onClick={handleToggleAccount}
               className='flex items-center justify-center bg-white-100 hover:bg-gray-200 dark:hover:bg-darkHover focus:outline-none rounded-md'
             >
               <svg
@@ -114,7 +120,7 @@ const Sidebar = () => {
         </nav>
       </aside>
 
-      {showAccount && <Authentication />}
+      {showAccount && <Authentication toggleAccount={toggleAccount} />}
     </>
   );
 };
