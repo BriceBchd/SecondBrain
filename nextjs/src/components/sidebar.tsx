@@ -2,10 +2,13 @@
 
 import { useDarkMode } from '@/hooks/useDarkMode';
 import { useSidebar } from '@/hooks/useSidebar';
+import { useAccount } from '@/hooks/useAccount';
+import Authentication from './auth/auth';
 
 const Sidebar = () => {
   const [showSidebar, toggleSidebar] = useSidebar();
   const [isDarkMode, toggleDarkMode] = useDarkMode();
+  const [showAccount, toggleAccount] = useAccount();
 
   return (
     <>
@@ -22,14 +25,15 @@ const Sidebar = () => {
         </svg>
       </button>
       <aside
-        className={`fixed top-0 left-0 mx-2 my-20 w-70 h-5/6 py-2 bg-gray-100 dark:bg-dark shadow-xl border-r-2 dark:border-dark transition-all duration-700 rounded-xl ${
-          showSidebar ? 'translate-x-0' : '-translate-x-56'
+        className={`fixed top-0 left-0 z-40 mx-2 my-20 w-78 h-5/6 py-2 bg-gray-100 dark:bg-dark shadow-xl rounded-xl dark:border-dark border-gray-300 border-2 transition-all duration-700  ${
+          showSidebar ? 'translate-x-0' : '-translate-x-80'
         }`}
       >
         <nav className='flex flex-col m-4 mt-2'>
           <div className='flex items-center justify-between'>
             <button
-              onClick={toggleSidebar}
+              id='account'
+              onClick={toggleAccount}
               className='flex items-center justify-center bg-white-100 hover:bg-gray-200 dark:hover:bg-darkHover focus:outline-none rounded-md'
             >
               <svg
@@ -109,6 +113,8 @@ const Sidebar = () => {
           </div>
         </nav>
       </aside>
+
+      {showAccount && <Authentication />}
     </>
   );
 };
