@@ -16,7 +16,7 @@ const PopupCard = ({ title, message, color, onClose }: PopupCardProps) => {
 
   return (
     <div
-      className={`absolute bottom-14 flex flex-col items-center justify-center space-y-2 p-4 border-2 rounded-lg ${colorVariants[color]}`}
+      className={`absolute bottom-14 flex flex-col items-center justify-center space-y-2 p-4 border-2 rounded-lg ${colorVariants[color]} dark:text-black`}
     >
       <button className='absolute top-2 right-2' onClick={onClose}>
         <svg
