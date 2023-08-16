@@ -1,12 +1,25 @@
 import { useState } from 'react';
+import PopupCard from '../popupCard';
+import { PopupCardProps } from '../popupCard';
 
 type LoginProps = {
-  toggleAuthForm: () => void;
+  toggleAuthForm: (authForm: string) => void;
 };
 
 const Login = ({ toggleAuthForm }: LoginProps) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPopupCard, setShowPopupCard] = useState<boolean>(false);
+  const [popupCard, setPopupCard] = useState<PopupCardProps>({
+    title: '',
+    message: '',
+    color: '',
+    onClose: () => {},
+  });
+
+  const toggleRegisterForm = () => {
+    toggleAuthForm('register');
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,8 +39,36 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
 
     if (response.ok) {
       console.log('success');
+      setPopupCard({
+        title: 'Success',
+        message: 'Login successful!',
+        color: 'green',
+        onClose: () => {
+          setShowPopupCard(false);
+        },
+      });
+      setShowPopupCard(true);
+      setTimeout(() => {
+        console.log('timeout');
+        setShowPopupCard(false);
+        toggleAuthForm('profile');
+      }, 1000);
     } else {
       console.log('error');
+      setPopupCard({
+        title: 'Error',
+        message: 'Login failed : ' + response.statusText,
+        color: 'red',
+        onClose: () => {
+          setShowPopupCard(false);
+        },
+      });
+      setShowPopupCard(true);
+      // wait a second before hiding the popup card
+      setTimeout(() => {
+        console.log('timeout');
+        setShowPopupCard(false);
+      }, 1000);
     }
   };
 
@@ -63,9 +104,17 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
       <div className='flex flex-col items-center justify-center w-full space-y-2'>
         <p>{`Don't have an account ? `}</p>
         <div className='font-extrabold'>
-          <button onClick={toggleAuthForm}>Sign Up</button>
+          <button onClick={toggleRegisterForm}>Sign Up</button>
         </div>
       </div>
+      {showPopupCard && (
+        <PopupCard
+          title={popupCard.title}
+          message={popupCard.message}
+          color={popupCard.color}
+          onClose={popupCard.onClose}
+        />
+      )}
     </div>
   );
 };

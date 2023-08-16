@@ -1,11 +1,22 @@
 import { useState } from 'react';
 
-export const useAuthForm = () => {
-  const [authFormType, setAuthFormType] = useState<'login' | 'signup'>('login');
+type AuthFormType = 'profile' | 'login' | 'register' | 'loading';
 
-  const toggleAuthForm = () => {
-    setAuthFormType(authFormType === 'login' ? 'signup' : 'login');
+export const useAuthForm = (): [AuthFormType, (formType: string) => void] => {
+  const [authFormType, setAuthFormType] = useState<AuthFormType>('loading');
+
+  const toggleAuthForm = (formType: string) => {
+    switch (formType) {
+      case 'loading':
+      case 'profile':
+      case 'login':
+      case 'register':
+        setAuthFormType(formType);
+        break;
+      default:
+        console.error(`Invalid auth form type: ${formType}`);
+    }
   };
 
-  return [authFormType, toggleAuthForm] as const;
+  return [authFormType, toggleAuthForm];
 };

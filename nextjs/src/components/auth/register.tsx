@@ -1,13 +1,19 @@
 import { useState } from 'react';
+import PopupCard from '../popupCard';
+import { PopupCardProps } from '../popupCard';
 
 type RegisterProps = {
-  toggleAuthForm: () => void;
+  toggleAuthForm: (authForm: string) => void;
 };
 
 const Register = ({ toggleAuthForm }: RegisterProps) => {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const toggleLoginForm = () => {
+    toggleAuthForm('login');
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,7 +81,7 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
       <div className='flex flex-col items-center justify-center w-full space-y-2'>
         <p>Already have an account ?</p>
         <div className='font-extrabold'>
-          <button onClick={toggleAuthForm}>Login</button>
+          <button onClick={toggleLoginForm}>Login</button>
         </div>
       </div>
     </div>
