@@ -38,7 +38,6 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
     document.cookie = `token=${token}; SameSite=None; Secure; expires=${expirationDate.toUTCString()}`;
 
     if (response.ok) {
-      console.log('success');
       setPopupCard({
         title: 'Success',
         message: 'Login successful!',
@@ -49,7 +48,6 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
       });
       setShowPopupCard(true);
       setTimeout(() => {
-        console.log('timeout');
         setShowPopupCard(false);
         toggleAuthForm('profile');
       }, 1000);
@@ -66,7 +64,6 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
       setShowPopupCard(true);
       // wait a second before hiding the popup card
       setTimeout(() => {
-        console.log('timeout');
         setShowPopupCard(false);
       }, 1000);
     }
@@ -80,7 +77,7 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
         onSubmit={handleSubmit}
       >
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='text'
           placeholder='Username'
           value={username}
@@ -88,14 +85,14 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
         />
 
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='password'
           placeholder='Password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         <button
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='submit'
         >
           Login

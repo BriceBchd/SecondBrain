@@ -10,6 +10,13 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPopupCard, setShowPopupCard] = useState<boolean>(false);
+  const [popupCard, setPopupCard] = useState<PopupCardProps>({
+    title: '',
+    message: '',
+    color: '',
+    onClose: () => {},
+  });
 
   const toggleLoginForm = () => {
     toggleAuthForm('login');
@@ -32,7 +39,19 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
     document.cookie = `token=${token}; SameSite=None; Secure; expires=${expirationDate.toUTCString()}`;
 
     if (response.ok) {
-      console.log('success');
+      setPopupCard({
+        title: 'Success',
+        message: 'Registration successful!',
+        color: 'green',
+        onClose: () => {
+          setShowPopupCard(false);
+        },
+      });
+      setShowPopupCard(true);
+      setTimeout(() => {
+        setShowPopupCard(false);
+        toggleAuthForm('profile');
+      }, 1000);
     } else {
       console.log('error');
     }
@@ -46,33 +65,33 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
         onSubmit={handleSubmit}
       >
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='text'
           placeholder='Username'
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2focus:outline-none'
           type='text'
           placeholder='Email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='password'
           placeholder='Password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='password'
           placeholder='Confirm Password'
         />
         <button
-          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline hover:border-2'
+          className='w-3/4 h-10 p-2 rounded-md border focus:outline hover:border-2'
           type='submit'
         >
           Register
@@ -86,6 +105,7 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
           </button>
         </div>
       </div>
+      {showPopupCard && <PopupCard {...popupCard} />}
     </div>
   );
 };
