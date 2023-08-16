@@ -24,6 +24,7 @@ const ConnectDB = async (fastify, options) => {
       useUnifiedTopology: true,
       user,
       pass,
+      dbName: 'secondbrain',
     });
     db.models = models;
   } catch (error) {

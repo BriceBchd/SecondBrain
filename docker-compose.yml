@@ -24,8 +24,8 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_BASICAUTH_USERNAME: ${DB_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${DB_PASSWORD}
-      ME_CONFIG_BASICAUTH_ENCRYPT: "false"
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_BASICAUTH_ENCRYPT: 'false'
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
       ME_CONFIG_MONGODB_PORT: 27017
     depends_on:
       - mongodb
@@ -40,9 +40,10 @@ services:
     volumes:
       - ./fastify/:/app/
       - .env:/app/.env
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - mongodb
-    entrypoint: [ "npm", "run", "dev" ]
+    entrypoint: ['npm', 'run', 'dev']
 
   nextjs:
     image: node:18
@@ -55,7 +56,7 @@ services:
       - ./nextjs:/app
     depends_on:
       - fastify
-    entrypoint: [ "npm", "run", "dev" ]
+    entrypoint: ['npm', 'run', 'dev']
 
 volumes:
   mongodb_data:
