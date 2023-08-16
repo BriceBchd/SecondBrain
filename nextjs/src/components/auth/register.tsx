@@ -39,40 +39,40 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center w-full space-y-5'>
-      <h2 className='text-2xl font-bold'>Register</h2>
+    <div className='flex flex-col items-center w-full h-full mt-16 space-y-5'>
+      <h2 className='text-2xl font-bold m-4'>Register</h2>
       <form
-        className='flex flex-col items-center justify-center w-full h-full space-y-5'
+        className='flex flex-col items-center justify-center w-full space-y-2'
         onSubmit={handleSubmit}
       >
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border border-gray-300 focus:outline focus:outline-offset-4'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
           type='text'
           placeholder='Username'
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
           type='text'
           placeholder='Email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
           type='password'
           placeholder='Password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:border-2 focus:border-gray-300 focus:outline-none'
           type='password'
           placeholder='Confirm Password'
         />
         <button
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline hover:border-2'
           type='submit'
         >
           Register
@@ -81,7 +81,9 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
       <div className='flex flex-col items-center justify-center w-full space-y-2'>
         <p>Already have an account ?</p>
         <div className='font-extrabold'>
-          <button onClick={toggleLoginForm}>Login</button>
+          <button className='hover:underline' onClick={toggleLoginForm}>
+            Login
+          </button>
         </div>
       </div>
     </div>

@@ -73,14 +73,14 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center w-full space-y-5'>
-      <h2 className='text-2xl font-bold'>Login</h2>
+    <div className='flex flex-col items-center w-full h-full mt-16 space-y-5'>
+      <h2 className='text-2xl font-bold m-4'>Login</h2>
       <form
-        className='flex flex-col items-center justify-center w-full h-full space-y-2'
+        className='flex flex-col items-center justify-center w-full space-y-2'
         onSubmit={handleSubmit}
       >
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
           type='text'
           placeholder='Username'
           value={username}
@@ -88,14 +88,14 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
         />
 
         <input
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
           type='password'
           placeholder='Password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         <button
-          className='w-3/4 h-10 my-2 p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500'
+          className='w-3/4 h-10 p-2 rounded-md border border-gray-300 focus:outline'
           type='submit'
         >
           Login
@@ -104,7 +104,9 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
       <div className='flex flex-col items-center justify-center w-full space-y-2'>
         <p>{`Don't have an account ? `}</p>
         <div className='font-extrabold'>
-          <button onClick={toggleRegisterForm}>Sign Up</button>
+          <button className='hover:underline' onClick={toggleRegisterForm}>
+            Sign Up
+          </button>
         </div>
       </div>
       {showPopupCard && (

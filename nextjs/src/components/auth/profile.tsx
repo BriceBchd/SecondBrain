@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import PopupCard from '../popupCard';
+import { PopupCardProps } from '../popupCard';
 
 type ProfileProps = {
   toggleAuthForm: (authForm: string) => void;
@@ -7,6 +9,15 @@ type ProfileProps = {
 const Profile = ({ toggleAuthForm }: ProfileProps) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [showPopupCard, setShowPopupCard] = useState<boolean>(false);
+  const [popupCard, setPopupCard] = useState<PopupCardProps>({
+    title: '',
+    message: '',
+    color: '',
+    onClose: () => {
+      setShowPopupCard(false);
+    },
+  });
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -36,21 +47,31 @@ const Profile = ({ toggleAuthForm }: ProfileProps) => {
     const response = await fetch('http://localhost:3000/user/logout', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
     if (response.ok) {
       document.cookie = `token=; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-      toggleAuthForm('login');
+      setPopupCard({
+        title: 'Success',
+        message: 'Logout successful!',
+        color: 'green',
+        onClose: () => {
+          setShowPopupCard(false);
+        },
+      });
+      setShowPopupCard(true);
+      setTimeout(() => {
+        toggleAuthForm('login');
+      }, 1000);
     } else {
       console.log('error');
     }
   };
 
   return (
-    <div className='flex flex-col items-center justify-center w-full space-y-5'>
-      <h2 className='text-2xl font-bold'>Profile</h2>
+    <div className='flex flex-col items-center w-full h-full mt-16 space-y-5'>
+      <h2 className='text-2xl font-bold m-4'>Profile</h2>
       <div>
         <p>Username : {username}</p>
         <p>Email : {email}</p>
@@ -61,6 +82,7 @@ const Profile = ({ toggleAuthForm }: ProfileProps) => {
       >
         Logout
       </button>
+      {showPopupCard && <PopupCard {...popupCard} />}
     </div>
   );
 };
