@@ -1,5 +1,7 @@
 import FastifyAuth from '@fastify/auth';
 import User from '../models/user.js';
+import oauthPlugin from '@fastify/oauth2';
+import fastify from 'fastify';
 
 const usersRoutes = async (fastify, options) => {
   const basePath = '/user';
