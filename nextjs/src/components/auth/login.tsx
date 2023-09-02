@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PopupCard from '../popupCard'
 import { PopupCardProps } from '../popupCard'
+import { AuthGoogle } from './authGoogle'
 
 type LoginProps = {
   toggleAuthForm: (authForm: string) => void
@@ -70,10 +71,11 @@ const Login = ({ toggleAuthForm }: LoginProps) => {
   }
 
   return (
-    <div className='flex flex-col items-center w-full h-full mt-16 space-y-5'>
+    <div className='flex flex-col items-center w-full h-full mt-16'>
       <h2 className='text-2xl font-bold m-4'>Login</h2>
+      <AuthGoogle />
       <form
-        className='flex flex-col items-center justify-center w-full space-y-2'
+        className='flex flex-col items-center justify-center w-full space-y-2 m-5 text-dark'
         onSubmit={handleSubmit}
       >
         <input

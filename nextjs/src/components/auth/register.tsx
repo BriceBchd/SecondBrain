@@ -1,42 +1,43 @@
-import { useState } from 'react';
-import PopupCard from '../popupCard';
-import { PopupCardProps } from '../popupCard';
+import { useState } from 'react'
+import PopupCard from '../popupCard'
+import { PopupCardProps } from '../popupCard'
+import { AuthGoogle } from './authGoogle'
 
 type RegisterProps = {
-  toggleAuthForm: (authForm: string) => void;
-};
+  toggleAuthForm: (authForm: string) => void
+}
 
 const Register = ({ toggleAuthForm }: RegisterProps) => {
-  const [email, setEmail] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [showPopupCard, setShowPopupCard] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [showPopupCard, setShowPopupCard] = useState<boolean>(false)
   const [popupCard, setPopupCard] = useState<PopupCardProps>({
     title: '',
     message: '',
     color: '',
     onClose: () => {},
-  });
+  })
 
   const toggleLoginForm = () => {
-    toggleAuthForm('login');
-  };
+    toggleAuthForm('login')
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const response = await fetch('http://localhost:3000/user/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, username, password }),
-    });
+    })
 
-    console.log(response);
+    console.log(response)
 
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 30);
-    const { token } = await response.json();
-    document.cookie = `token=${token}; SameSite=None; Secure; expires=${expirationDate.toUTCString()}`;
+    const expirationDate = new Date()
+    expirationDate.setDate(expirationDate.getDate() + 30)
+    const { token } = await response.json()
+    document.cookie = `token=${token}; SameSite=None; Secure; expires=${expirationDate.toUTCString()}`
 
     if (response.ok) {
       setPopupCard({
@@ -44,24 +45,25 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
         message: 'Registration successful!',
         color: 'green',
         onClose: () => {
-          setShowPopupCard(false);
+          setShowPopupCard(false)
         },
-      });
-      setShowPopupCard(true);
+      })
+      setShowPopupCard(true)
       setTimeout(() => {
-        setShowPopupCard(false);
-        toggleAuthForm('profile');
-      }, 1000);
+        setShowPopupCard(false)
+        toggleAuthForm('profile')
+      }, 1000)
     } else {
-      console.log('error');
+      console.log('error')
     }
-  };
+  }
 
   return (
-    <div className='flex flex-col items-center w-full h-full mt-16 space-y-5'>
+    <div className='flex flex-col items-center w-full h-full mt-16'>
       <h2 className='text-2xl font-bold m-4'>Register</h2>
+      <AuthGoogle />
       <form
-        className='flex flex-col items-center justify-center w-full space-y-2'
+        className='flex flex-col items-center justify-center w-full space-y-2 m-5 text-dark'
         onSubmit={handleSubmit}
       >
         <input
@@ -72,7 +74,7 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
           onChange={(event) => setUsername(event.target.value)}
         />
         <input
-          className='w-3/4 h-10 p-2 rounded-md border focus:border-2focus:outline-none'
+          className='w-3/4 h-10 p-2 rounded-md border focus:border-2 focus:outline-none'
           type='text'
           placeholder='Email'
           value={email}
@@ -107,7 +109,7 @@ const Register = ({ toggleAuthForm }: RegisterProps) => {
       </div>
       {showPopupCard && <PopupCard {...popupCard} />}
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

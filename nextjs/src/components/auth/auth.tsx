@@ -1,26 +1,27 @@
-import Login from './login';
-import Register from './register';
-import Profile from './profile';
-import { useAuthForm } from '../../hooks/auth/useAuthForm';
-import { useEffect } from 'react';
+import Login from './login'
+import Register from './register'
+import Profile from './profile'
+import { useAuthForm } from '../../hooks/auth/useAuthForm'
+import { useEffect } from 'react'
 
 type AuthenticationProps = {
-  toggleAccount: () => void;
-};
+  toggleAccount: () => void
+}
 
 const Authentication = ({ toggleAccount }: AuthenticationProps) => {
-  const [authFormType, toggleAuthForm] = useAuthForm();
+  const [authFormType, toggleAuthForm] = useAuthForm()
 
   useEffect(() => {
     if (authFormType === 'loading') {
-      const token = document.cookie.split('=')[1];
+      const token = document.cookie.split('=')[1]
+      console.log(token)
       if (token) {
-        toggleAuthForm('profile');
+        toggleAuthForm('profile')
       } else {
-        toggleAuthForm('login');
+        toggleAuthForm('login')
       }
     }
-  }, [authFormType, toggleAuthForm]);
+  }, [authFormType, toggleAuthForm])
 
   return (
     <div className='mx-auto my-20 py-10 sm:w-3/4 md:w-3/4 max-w-xl h-5/6 fixed inset-0 flex items-center z-10'>
@@ -59,7 +60,7 @@ const Authentication = ({ toggleAccount }: AuthenticationProps) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Authentication;
+export default Authentication
